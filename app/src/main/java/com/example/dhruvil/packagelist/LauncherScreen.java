@@ -1,5 +1,6 @@
 package com.example.dhruvil.packagelist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.dhruvil.packagelist.swipe.SwipeStack;
 
@@ -18,20 +20,21 @@ import java.util.ArrayList;
 public class LauncherScreen extends AppCompatActivity {
 
 
+    SwipeStack swipeStack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launcher_screen);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent iHome = new Intent(LauncherScreen.this,HomeScreen.class);
+                startActivity(iHome);
+                finish();
             }
         });
 
@@ -43,14 +46,35 @@ public class LauncherScreen extends AppCompatActivity {
     private void fillData() {
 
         ArrayList<String> datas = new ArrayList<>();
-        datas.add("One");
-        datas.add("Two");
+        datas.add("Check One");
+        datas.add("Check Two");
         datas.add("Three");
-        datas.add("Four");
+        datas.add("Final");
 
-
-        SwipeStack swipeStack = (SwipeStack) findViewById(R.id.swipeStack);
+        swipeStack = (SwipeStack) findViewById(R.id.swipeStack);
         swipeStack.setAdapter(new SwipeStackAdapter(datas,this));
+
+        swipeStack.setListener(new SwipeStack.SwipeStackListener() {
+            @Override
+            public void onViewSwipedToLeft(int position) {
+
+            }
+
+            @Override
+            public void onViewSwipedToRight(int position) {
+
+            }
+
+            @Override
+            public void onStackEmpty() {
+
+                Intent iHome = new Intent(LauncherScreen.this,HomeScreen.class);
+                startActivity(iHome);
+                finish();
+
+
+            }
+        });
 
     }
 

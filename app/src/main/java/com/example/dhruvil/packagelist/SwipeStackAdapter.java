@@ -13,6 +13,8 @@ public class SwipeStackAdapter extends BaseAdapter {
 
     private List<String> mData;
     private Context ctx;
+    private int colors[] = {R.color.c_bondi_blue,R.color.c_candypink,R.color.c_camel,R.color.c_antiqueruby};
+
 
     public SwipeStackAdapter(List<String> data, Context ctx) {
         this.mData = data;
@@ -36,10 +38,14 @@ public class SwipeStackAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
+
         LayoutInflater li = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = li.inflate(R.layout.card, parent, false);
-        TextView textViewCard = (TextView) convertView.findViewById(R.id.textViewCard);
+        convertView = li.inflate(R.layout.item_guide, parent, false);
+        TextView textViewCard = (TextView) convertView.findViewById(R.id.txtGuide);
         textViewCard.setText(mData.get(position));
+
+        View v = (View)convertView.findViewById(R.id.bg);
+        convertView.setBackgroundColor(colors[position]);
 
         return convertView;
     }
